@@ -1,15 +1,32 @@
 {
   "supply-chain": {
     "includes": [
+      { "name": "supply-chain", "removable": false },
       { "name": "non-fungible-token", "removable": false },
       { "name": "fungible-token", "removable": false }
     ]
   },
-  "coffee-supply-chain": {
+  "Super Supply Chain": {
     "includes": [
+      { "name": "supply-chain", "removable": false },
       { "name": "non-fungible-token", "removable": false },
       { "name": "fungible-token", "removable": false },
       { "name": "oracle", "removable": true }
+    ]
+  },
+  "Super DEX": {
+    "includes": [
+      { "name": "dex", "removable": false },
+      { "name": "fungible-token", "removable": false },
+      { "name": "staking", "removable": false },
+      { "name": "oracle", "removable": true }
+    ]
+  },
+  "Super DAO": {
+    "includes": [
+      { "name": "dao", "removable": false },
+      { "name": "escrow", "removable": false },
+      { "name": "staking", "removable": false }
     ]
   }
 }
