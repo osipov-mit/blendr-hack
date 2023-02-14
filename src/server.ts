@@ -21,7 +21,7 @@ export class Server {
 
   setupMiddleware() {
     this.app.use(json());
-    this.app.use(cors());
+    this.app.use(cors({ origin: '*' }));
     this.app.use(function (req, res, next) {
       res.setHeader('Access-Control-Allow-Origin', '*');
       res.setHeader('Access-Control-Allow-Credentials', 'true');

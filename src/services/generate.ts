@@ -18,8 +18,26 @@ export function generate(data: GenerateIn): Promise<string> {
   const id = uuid();
   const dirName = join(config.progjectsDir, id, data.name);
   fs.mkdirSync(dirName, { recursive: true });
-  fs.cpSync(join(config.templatesDir, data.template), dirName, { recursive: true });
-  // execSync('');
+  const programs = data.programs.map(({ name }) => name);
+
+  let templatePath = join(config.templatesDir, data.template);
+
+  // Next part is temporaly neede until we create a generator of these contracts
+  if (['supply-chain', 'Super Supply Chain'].includes(data.name)) {
+    if (programs.includes('oracle') && programs.includes('dao')) {
+      templatePath = join(config.superTemplatesDir, process.env.SSC_ORACLE_DAO);
+    } else if (programs.includes('oracle')) {
+      templatePath = join(config.superTemplatesDir, process.env.SSC_ORACLE);
+    } else if (programs.includes('dao')) {
+      templatePath = join(config.superTemplatesDir, process.env.SSC_DAO);
+    }
+  } else if (['dex', 'Super DEX'].includes(data.name)) {
+    templatePath = join(config.superTemplatesDir, process.env.SDEX);
+  }
+  //
+
+  fs.cpSync(templatePath, dirName, { recursive: true });
+  // TODO execSync('');
   return createZip(dirName);
 }
 
