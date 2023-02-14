@@ -1,4 +1,4 @@
-import { randomUUID } from 'crypto';
+import { randomUUID } from 'node:crypto';
 import { cpSync, createWriteStream, mkdirSync } from 'fs';
 import { join } from 'path';
 import config from '../config';
