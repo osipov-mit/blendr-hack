@@ -2,7 +2,7 @@ import express, { json, Express } from 'express';
 import cors from 'cors';
 
 import config from './config';
-import { generate, getTemplateNames } from './services';
+import { generate, getTemplateDetails, getTemplateNames } from './services';
 
 export class Server {
   app: Express;
@@ -37,13 +37,25 @@ export class Server {
         return res.status(200).json({ path: archive });
       } catch (error) {
         console.log(error);
-        return res.status(400).send(error.message);
+        return res.status(500).send(error.message);
       }
     });
 
     this.app.get('/templates/get', async (req, res) => {
       try {
         return res.status(200).json(getTemplateNames());
+      } catch (error) {
+        console.log(error);
+        return res.status(500).send(error.message);
+      }
+    });
+
+    this.app.post('/templates/details', async (req, res) => {
+      try {
+        if (!req.body.template) {
+          throw new Error(`Template name isn't provided`);
+        }
+        return res.status(200).json(getTemplateDetails(req.body.template));
       } catch (error) {
         console.log(error);
         return res.status(400).send(error.message);

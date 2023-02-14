@@ -1,0 +1,15 @@
+{
+  "supply-chain": {
+    "includes": [
+      { "name": "non-fungible-token", "removable": false },
+      { "name": "fungible-token", "removable": false }
+    ]
+  },
+  "coffee-supply-chain": {
+    "includes": [
+      { "name": "non-fungible-token", "removable": false },
+      { "name": "fungible-token", "removable": false },
+      { "name": "oracle", "removable": true }
+    ]
+  }
+}
