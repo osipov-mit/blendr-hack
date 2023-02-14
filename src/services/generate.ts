@@ -1,4 +1,4 @@
-import { randomUUID } from 'node:crypto';
+import { v4 as uuid } from 'uuid';
 import { cpSync, createWriteStream, mkdirSync } from 'fs';
 import { join } from 'path';
 import config from '../config';
@@ -15,7 +15,7 @@ interface GenerateIn {
 }
 
 export function generate(data: GenerateIn): Promise<string> {
-  const id = randomUUID();
+  const id = uuid();
   const dirName = join(config.progjectsDir, id, data.name);
   mkdirSync(dirName, { recursive: true });
   cpSync(join(config.templatesDir, data.template), dirName, { recursive: true });
