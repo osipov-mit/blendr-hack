@@ -1,7 +1,7 @@
 {
   "name": "blendr-back",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "license": "MIT",
   "devDependencies": {
     "@types/adm-zip": "^0.5.0",

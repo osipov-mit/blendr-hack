@@ -34,7 +34,7 @@ export class Server {
     this.app.post('/generate', async (req, res) => {
       try {
         const archive = await generate(req.body);
-        return res.sendFile(archive);
+        return res.status(200).json({ path: archive });
       } catch (error) {
         console.log(error);
         return res.status(400).send(error.message);
