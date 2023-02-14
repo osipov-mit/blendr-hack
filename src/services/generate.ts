@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { cpSync, createWriteStream, mkdirSync } from 'fs';
+import * as fs from 'fs';
 import { join } from 'path';
 import config from '../config';
 import archiver from 'archiver';
@@ -17,8 +17,8 @@ interface GenerateIn {
 export function generate(data: GenerateIn): Promise<string> {
   const id = uuid();
   const dirName = join(config.progjectsDir, id, data.name);
-  mkdirSync(dirName, { recursive: true });
-  cpSync(join(config.templatesDir, data.template), dirName, { recursive: true });
+  fs.mkdirSync(dirName, { recursive: true });
+  fs.cpSync(join(config.templatesDir, data.template), dirName, { recursive: true });
   // execSync('');
   return createZip(dirName);
 }
@@ -29,7 +29,7 @@ async function createZip(path: string): Promise<string> {
   const archiveName = `${path.split('/').at(-1)}.zip`;
   const pathToArchive = join(pathToDir, archiveName);
 
-  const output = createWriteStream(pathToArchive);
+  const output = fs.createWriteStream(pathToArchive);
 
   const resPromise = new Promise((resolve) =>
     output.on('close', () => {
