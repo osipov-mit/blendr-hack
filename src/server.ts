@@ -21,17 +21,12 @@ export class Server {
 
   setupMiddleware() {
     this.app.use(json());
-    this.app.use(cors({ origin: '*' }));
-    this.app.use(function (req, res, next) {
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      res.setHeader('Access-Control-Allow-Credentials', 'true');
-      res.setHeader('Access-Control-Allow-Methods', 'GET,POST');
-      next();
-    });
+    this.app.use(cors({ origin: '*', credentials: false }));
   }
 
   setupRouters() {
     this.app.post('/generate', async (req, res) => {
+      console.log('/templates/generate -> body:', req.body);
       try {
         const archive = await generate(req.body);
         return res.status(200).json({ path: archive });
@@ -42,6 +37,7 @@ export class Server {
     });
 
     this.app.get('/templates/get', async (req, res) => {
+      console.log('/templates/get -> body:', req.body);
       try {
         return res.status(200).json(getTemplateNames());
       } catch (error) {
@@ -51,6 +47,7 @@ export class Server {
     });
 
     this.app.post('/templates/details', async (req, res) => {
+      console.log('/templates/details -> body:', req.body);
       try {
         if (!req.body.template) {
           throw new Error(`Template name isn't provided`);
