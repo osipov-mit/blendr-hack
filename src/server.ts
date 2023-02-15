@@ -25,10 +25,11 @@ export class Server {
   }
 
   setupRouters() {
-    this.app.post('/generate', async (req, res) => {
-      console.log('/templates/generate -> body:', req.body);
+    this.app.get('/generate', async (req, res) => {
+      req.query.programs = JSON.parse(req.query.programs as string);
+      const params: any = req.query;
       try {
-        const archive = await generate(req.body);
+        const archive = await generate(params);
         return res.status(200).json({ path: archive });
       } catch (error) {
         console.log(error);
@@ -46,13 +47,12 @@ export class Server {
       }
     });
 
-    this.app.post('/templates/details', async (req, res) => {
-      console.log('/templates/details -> body:', req.body);
+    this.app.get('/templates/details', async (req, res) => {
       try {
-        if (!req.body.template) {
+        if (!req.query.template) {
           throw new Error(`Template name isn't provided`);
         }
-        return res.status(200).json(getTemplateDetails(req.body.template));
+        return res.status(200).json(getTemplateDetails(req.query.template as string));
       } catch (error) {
         console.log(error);
         return res.status(400).send(error.message);
