@@ -9,7 +9,7 @@ function getEnv(envName: string, _defaultValue?: string): string {
 }
 export default {
   port: Number(getEnv('PORT', '3000')),
-  progjectsDir: getEnv('PROJECTS_DIR'),
+  projectsDir: getEnv('PROJECTS_DIR'),
   templatesDir: getEnv('TEMPLATES_DIR'),
   superTemplatesDir: getEnv('SUPER_TEMPLATES_DIR'),
 };

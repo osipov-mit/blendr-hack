@@ -16,7 +16,7 @@ interface GenerateIn {
 
 export function generate(data: GenerateIn): Promise<string> {
   const id = uuid();
-  const dirName = join(config.progjectsDir, id, data.name);
+  const dirName = join(config.projectsDir, id, data.name);
   fs.mkdirSync(dirName, { recursive: true });
   const programs = data.programs?.map(({ name }) => name);
 
@@ -75,5 +75,5 @@ async function createZip(path: string): Promise<string> {
   await archive.finalize();
 
   await resPromise;
-  return pathToArchive;
+  return pathToArchive.slice(config.projectsDir.length - '/projects'.length);
 }
