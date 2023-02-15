@@ -21,14 +21,14 @@ export class Server {
 
   setupMiddleware() {
     this.app.use(json());
-    this.app.use(cors({ origin: '*', credentials: false }));
+    this.app.use(cors());
   }
 
   setupRouters() {
     this.app.get('/generate', async (req, res) => {
-      req.query.programs = JSON.parse(req.query.programs as string);
-      const params: any = req.query;
       try {
+        req.query.programs = JSON.parse(req.query.programs as string);
+        const params: any = req.query;
         const archive = await generate(params);
         return res.status(200).json({ path: archive });
       } catch (error) {

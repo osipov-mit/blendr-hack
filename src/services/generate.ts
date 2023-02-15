@@ -18,12 +18,12 @@ export function generate(data: GenerateIn): Promise<string> {
   const id = uuid();
   const dirName = join(config.progjectsDir, id, data.name);
   fs.mkdirSync(dirName, { recursive: true });
-  const programs = data.programs.map(({ name }) => name);
+  const programs = data.programs?.map(({ name }) => name);
 
   let templatePath = join(config.templatesDir, data.template);
 
   // Next part is temporaly neede until we create a generator of these contracts
-  if (['supply-chain', 'Super Supply Chain'].includes(data.name)) {
+  if (['supply-chain', 'Super Supply Chain'].includes(data.name) && programs) {
     if (programs.includes('oracle') && programs.includes('dao')) {
       templatePath = join(config.superTemplatesDir, process.env.SSC_ORACLE_DAO);
     } else if (programs.includes('oracle')) {
