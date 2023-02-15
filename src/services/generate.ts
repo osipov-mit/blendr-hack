@@ -25,11 +25,11 @@ export function generate(data: GenerateIn): Promise<string> {
   // Next part is temporaly neede until we create a generator of these contracts
   if (['supply-chain', 'Super Supply Chain'].includes(data.name) && programs) {
     if (programs.includes('oracle') && programs.includes('dao')) {
-      templatePath = join(config.superTemplatesDir, process.env.SSC_ORACLE_DAO);
+      templatePath = process.env.SSC_ORACLE_DAO;
     } else if (programs.includes('oracle')) {
-      templatePath = join(config.superTemplatesDir, process.env.SSC_ORACLE);
+      templatePath = process.env.SSC_ORACLE;
     } else if (programs.includes('dao')) {
-      templatePath = join(config.superTemplatesDir, process.env.SSC_DAO);
+      templatePath = process.env.SSC_DAO;
     }
   } else if (['dex', 'Super DEX'].includes(data.name)) {
     templatePath = join(config.superTemplatesDir, process.env.SDEX);
